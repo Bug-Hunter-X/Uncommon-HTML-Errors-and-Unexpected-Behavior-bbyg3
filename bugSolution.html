@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Uncommon HTML Error Solution</title>
+</head>
+<body>
+  <p>This is a paragraph.</p>
+  <div id="myDiv" data-test="testValue">
+    <p>This paragraph is inside a div.</p>
+  </div>
+
+  <script>
+    // Check if attribute exists before accessing
+    let element = document.getElementById("myDiv");
+    let attribute = element.hasAttribute("data-test") ? element.getAttribute("data-test") : null;
+    console.log(attribute); // Logs "testValue"
+
+    // Accessing an attribute that exists but has no value
+    let attributeWithValue = element.getAttribute('data-test');
+    console.log(attributeWithValue); // Logs "testValue"
+
+    //Secure use of innerHTML, using DOMParser to sanitize user input is better in this case
+    let userProvidedData="<script>alert('XSS')</script>";
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(userProvidedData, 'text/html');
+    let sanitizedData = doc.body.textContent;
+    element.textContent = sanitizedData; //This is safe
+  </script>
+</body>
+</html>
