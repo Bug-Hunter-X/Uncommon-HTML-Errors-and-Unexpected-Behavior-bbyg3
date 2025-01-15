@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Uncommon HTML Error</title>
+</head>
+<body>
+  <p>This is a paragraph.</p>
+  <div id="myDiv">
+    <p>This paragraph is inside a div.</p>
+  </div>
+
+  <script>
+    // Attempting to access a non-existent attribute
+    let element = document.getElementById("myDiv");
+    let nonExistentAttribute = element.getAttribute("data-nonexistent");
+    console.log(nonExistentAttribute); // Logs null
+
+    //This is not an error, but it's an uncommon scenario that may cause confusion.
+    // Accessing an attribute that exists but has no value
+    let attributeWithValue = element.getAttribute('data-test');
+    console.log(attributeWithValue); // Logs null
+
+    //Incorrect use of innerHTML can lead to XSS vulnerabilities if not handled properly
+    let userProvidedData="<script>alert('XSS')</script>";
+    element.innerHTML = userProvidedData;
+
+
+  </script>
+</body>
+</html>
